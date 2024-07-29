@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>{{ recipe.name }} - Recipe Details</title>
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        margin: 0;
+        padding: 0;
+        background-color: #f3f3f3;
+        text-align: center; /* Centers text */
+      }
+      .container {
+        margin-top: 50px; /* Adjust if more space is needed */
+        width: 80%; /* Adjust the width as needed */
+        margin-left: auto;
+        margin-right: auto;
+      }
+      h1 {
+        color: #333;
+      }
+      p,
+      ul {
+        color: #666;
+      }
+      .header-image {
+        width: 100%;
+        margin-bottom: 30px; /* Adds space below the image */
+      }
+      .header-image img {
+        width: 500px;
+        max-height: 500px; /* Adjust the max-height as needed */
+        object-fit: cover;
+        margin-top: 30px;
+      }
+      .nav-links {
+        margin-top: 20px;
+      }
+      a {
+        margin: 0 10px;
+        text-decoration: none;
+        color: #007bff;
+      }
+      ul {
+        list-style: none; /* Removes bullet points */
+        padding: 0; /* Removes default padding */
+      }
+      li {
+        margin-bottom: 5px; /* Spacing between list items */
+      }
+    </style>
+  </head>
+  <body>
+    <div class="header-image">
+      <img
+        src="{% if recipe.image %}{{ recipe.image.url }}{% else %}/path-to-default-image.jpg{% endif %}"
+        alt="{{ recipe.name }}"
+      />
+    </div>
+    <div class="container">
+      <h1>{{ recipe.name }}</h1>
+      <p><strong>Cooking Time:</strong> {{ recipe.cooking_time }} minutes</p>
+      <p><strong>Difficulty:</strong> {{ difficulty }}</p>
+      <p>{{ recipe.description }}</p>
+      <p><strong>Ingredients:</strong></p>
+      <ul>
+        {% for ingredient in recipe.ingredients.all %}
+        <li>{{ ingredient.name }}</li>
+        {% empty %}
+        <li>No ingredients listed.</li>
+        {% endfor %}
+      </ul>
+      <a href="{% url 'recipe_overview' %}">Back to Recipe List</a>
+    </div>
+  </body>
+</html>

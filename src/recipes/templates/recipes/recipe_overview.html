@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Recipe Overview</title>
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        margin: 0;
+        padding: 0;
+        background-color: #f3f3f3;
+        text-align: center; /* Centers text */
+      }
+      .container {
+        margin-top: 50px; /* Adjust if more space is needed */
+        width: 80%; /* Adjust the width as needed */
+        margin-left: auto;
+        margin-right: auto;
+      }
+      h1 {
+        color: #333;
+      }
+      p,
+      ul {
+        color: #666;
+      }
+      .header-image {
+        width: 100%;
+        margin-bottom: 30px; /* Adds space below the image */
+      }
+      .header-image img {
+        width: 100%;
+        max-height: 500px; /* Adjust the max-height as needed */
+        object-fit: cover;
+      }
+      .nav-links {
+        margin-top: 20px;
+      }
+      a {
+        margin: 0 10px;
+        text-decoration: none;
+        color: #007bff;
+      }
+      ul {
+        list-style: none; /* Removes bullet points */
+        padding: 0; /* Removes default padding */
+      }
+      li {
+        margin-bottom: 5px; /* Spacing between list items */
+      }
+    </style>
+  </head>
+  <body>
+    <div class="header-image">
+      <img
+        src="../../static/recipes/images/recipe-app.jpg"
+        alt="Recipe Collection Header"
+      />
+    </div>
+    <div class="container">
+      <h1>Recipe List</h1>
+      <ul>
+        {% for recipe in recipes %}
+        <li>
+          <a href="{% url 'recipe_detail' pk=recipe.pk %}">{{ recipe.name }}</a>
+        </li>
+        {% empty %}
+        <li>No recipes available.</li>
+        {% endfor %}
+      </ul>
+      <a href="{% url 'home' %}">Back to Home</a>
+    </div>
+  </body>
+</html>
