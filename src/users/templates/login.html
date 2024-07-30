@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Welcome To The World Recipe Explorer <br> Login</title>
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        margin: 0;
+        padding: 0;
+        background-color: #f3f3f3;
+        text-align: center;
+      }
+      .container {
+        margin-top: 50px; /* Adjust if more space needed */
+      }
+      h1 {
+        color: #333;
+      }
+      p {
+        color: #666;
+      }
+      .header-image {
+        width: 100%;
+        margin-bottom: 30px; /* Adds space below the image */
+      }
+      .header-image img {
+        width: 100%;
+        max-height: 500px; /* Adjust the max-height as needed */
+        object-fit: cover;
+      }
+      .nav-links {
+        margin-top: 20px;
+      }
+      a {
+        margin: 0 10px;
+        text-decoration: none;
+        color: #007bff;
+      }
+      .login-form {
+        margin: auto;
+        width: 300px;
+        padding: 20px;
+        background-color: white;
+        border-radius: 10px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+      }
+      input[type="text"],
+      input[type="password"] {
+        box-sizing: border-box; /* Add this line */
+        width: 100%;
+        padding: 10px;
+        margin: 10px 0;
+        border: 1px solid #ddd;
+        border-radius: 5px;
+      }
+      button[type="submit"] {
+        width: 100%;
+        padding: 10px;
+        background-color: #007bff;
+        color: white;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+      }
+      button[type="submit"]:hover {
+        background-color: #0056b3;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <h1>Login to The World Recipe Explorer</h1>
+      <div class="login-form">
+        <form method="post">
+          {% csrf_token %}
+          <input type="text" name="username" placeholder="Username" required />
+          <input
+            type="password"
+            name="password"
+            placeholder="Password"
+            required
+          />
+          <button type="submit">Login</button>
+        </form>
+        {% if error %}
+        <p style="color: red">{{ error }}</p>
+        {% endif %}
+      </div>
+    </div>
+  </body>
+</html>
