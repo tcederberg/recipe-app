@@ -46,32 +46,89 @@
         list-style: none; /* Removes bullet points */
         padding: 0; /* Removes default padding */
       }
-      li {
-        margin-bottom: 5px; /* Spacing between list items */
+      .recipe-container {
+        border: 1px solid #ccc;
+        padding: 10px;
+        border-radius: 5px;
+        background-color: #fff;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        margin-bottom: 20px; /* Adds margin between recipes */
+      }
+      .nav-button {
+        display: inline-block; /* Allows buttons to sit side-by-side */
+        background-color: #007bff;
+        color: white;
+        padding: 10px 20px;
+        text-decoration: none;
+        border-radius: 5px;
+        border: none;
+        cursor: pointer;
+        margin: 0 10px; /* Spacing between buttons */
+        max-width: 200px; /* Maximum width of buttons */
+        box-sizing: border-box; /* Includes padding and border in the width */
+      }
+      .recipe-image {
+        max-width: 350px;
+        height: 350px;
+        display: block; /* Ensure the image is not inline */
+        margin: 0 auto; /* Center the image in the container */
       }
     </style>
   </head>
   <body>
+    
     <div class="header-image">
-      <img
+      <!-- <img
         src="../../static/recipes/images/recipe-app.jpg"
         alt="Recipe Collection Header"
-      />
+      /> -->
     </div>
     <div class="container">
       <h1>Recipe List</h1>
+      {% for recipe in recipes %}
+      <div class="recipe-container">
+        <a href="{% url 'recipe_detail' pk=recipe.pk %}">
+          <img src="{{ recipe.image.url }}" alt="{{ recipe.name }} Image" class="recipe-image" />
+          <h2>{{ recipe.name }}</h2>
+          <p>{{ recipe.description|truncatewords:10 }}</p>
+          <p>Cooking Time: {{ recipe.cooking_time }} minutes | Difficulty: {{ recipe.calculate_difficulty }}</p>
+        </a>
+      </div>
+      {% empty %}
+      <p>No recipes available.</p>
+      {% endfor %}
+      <div class="chart-container">
+        <h2>Recipe Difficulty Distribution</h2>
+        <img
+          src="data:image/png;base64,{{ difficulty_graphic }}"
+          alt="Recipe Difficulty Chart"
+        />
+      </div>
       <ul>
-        {% for recipe in recipes %}
-        <li>
-          <a href="{% url 'recipe_detail' pk=recipe.pk %}">{{ recipe.name }}</a>
-        </li>
-        {% empty %}
-        <li>No recipes available.</li>
+        {% for difficulty, url in difficulty_urls.items %}
+        <li><a href="{{ url }}">{{ difficulty }}</a></li>
         {% endfor %}
       </ul>
-      <a href="{% url 'home' %}">Back to Home</a>
+      <div class="chart-container">
+        <h2>Recipe Distribution by Number of Ingredients</h2>
+        <img
+          src="data:image/png;base64,{{ ingredient_pie_chart_graphic }}"
+          alt="Ingredient Pie Chart"
+        />
+      </div>
+      <div class="chart-container">
+        <h2>Average Cooking Time</h2>
+        <img
+          src="data:image/png;base64,{{ cooking_time_trend_graphic }}"
+          alt="Cooking Time Line Chart"
+        />
+      </div>
+      <div class="difficulty-links"></div>
+      <br />
+      <a href="{% url 'home' %}" class="nav-button">Back to Home</a>
       <!-- Logout Link -->
-      <a href="{% url 'logout' %}" style="margin-left: 20px">Logout</a>
+      <a href="{% url 'logout' %}" class="nav-button" style="margin-left: 20px"
+        >Logout</a>
     </div>
   </body>
 </html>

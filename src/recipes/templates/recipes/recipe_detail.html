@@ -50,6 +50,19 @@
       li {
         margin-bottom: 5px; /* Spacing between list items */
       }
+      .nav-button {
+        display: inline-block; /* Allows buttons to sit side-by-side */
+        background-color: #007bff;
+        color: white;
+        padding: 10px 20px;
+        text-decoration: none;
+        border-radius: 5px;
+        border: none;
+        cursor: pointer;
+        margin: 0 10px; /* Spacing between buttons */
+        max-width: 200px; /* Maximum width of buttons */
+        box-sizing: border-box; /* Includes padding and border in the width */
+      }
     </style>
   </head>
   <body>
@@ -72,9 +85,9 @@
         <li>No ingredients listed.</li>
         {% endfor %}
       </ul>
-      <a href="{% url 'recipe_overview' %}">Back to Recipe List</a>
+      <a href="{% url 'recipe_overview' %}" class="nav-button" >Back to Recipe List</a>
       <!-- Logout Link -->
-      <a href="{% url 'logout' %}" style="margin-left: 20px">Logout</a>
+      <a href="{% url 'logout' %}" class="nav-button" style="margin-left: 20px">Logout</a>
     </div>
   </body>
 </html>

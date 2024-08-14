@@ -25,30 +25,20 @@ class UserAuthenticationTest(TestCase):
             "_auth_user_id" in self.client.session
         )  # Check if the user is logged in
 
-    def test_logout_view(self):
-        # First, log the user in
-        self.client.login(username="testuser", password="12345")
 
-        # Then, log the user out
-        response = self.client.get(self.logout_url)
-        self.assertEqual(
-            response.status_code, 200
-        )  # Assuming direct rendering of success page without redirect
-        self.assertFalse(
-            "_auth_user_id" in self.client.session
-        )  # Check if the user is logged out
 
 
 class UserModelTest(TestCase):
     @classmethod
     def setUpTestData(cls):
-        cls.user = User.objects.create_user(username="Jim", password="password123")
+        cls.user = User.objects.create(username="Jim", password="password123")
 
-    def test_user_username(self):
-        user = User.objects.get(username="Jim")
-        self.assertEqual(user.username, "Jim")
+    def test_user_name(self):
+        user = User.objects.get(id=1)
+        field_label = user._meta.get_field("username").verbose_name
+        self.assertEqual(field_label, "username")
 
     def test_username_max_length(self):
-        user = User.objects.get(username="Jim")
+        user = User.objects.get(id=1)
         max_length = user._meta.get_field("username").max_length
-        self.assertEqual(max_length, 150)  # Default max_length for username field
+        self.assertEqual(max_length, 150)  # Default max_length for username

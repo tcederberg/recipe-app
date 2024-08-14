@@ -33,10 +33,30 @@
       .nav-links {
         margin-top: 20px;
       }
-      a {
-        margin: 0 10px;
+      .nav-links > * {
+        display: block; /* Stack elements vertically */
+        margin: 10px auto; /* Center elements */
+      }
+      .nav-button {
+        display: inline-block; /* Allows buttons to sit side-by-side */
+        background-color: #007bff;
+        color: white;
+        padding: 10px 20px;
         text-decoration: none;
-        color: #007bff;
+        border-radius: 5px;
+        border: none;
+        cursor: pointer;
+        margin: 0 10px; /* Spacing between buttons */
+        max-width: 200px; /* Maximum width of buttons */
+        box-sizing: border-box; /* Includes padding and border in the width */
+      }
+      form {
+        display: inline-block; /* Aligns elements in a line */
+        margin-bottom: 15px; /* Space below the form */
+      }
+      .logout-btn {
+        display: block; /* Isolate logout button */
+        margin-top: 20px; /* Space above logout button */
       }
     </style>
   </head>
@@ -53,19 +73,27 @@
         Dive into a world of culinary delights with our extensive recipe collection.
       </p>
       <div class="nav-links">
-        <a href="{% url 'recipe_overview' %}">Recipe Overview</a>
+        <!-- Overview Button -->
+        <a href="{% url 'recipe_overview' %}" class="nav-button"
+          >Recipe Overview</a>
 
         <!-- Search Form in Navigation Bar -->
-        <form
-          action="{% url 'search_results' %}"
-          method="get"
-          style="display: inline"
-        >
-          <input type="text" name="query" placeholder="Search ingredients..." />
+        <!-- All Recipes Button -->
+        <a href="{% url 'show_all_recipes' %}" class="nav-button"
+          >View All Recipes</a>
+          <!-- Search Form -->
+        <form action="{% url 'search_results' %}" method="get">
+            <input type="text" name="query" placeholder="Search recipes..." />
+            <select name="search_type">
+              <option value="name">Name</option>
+              <option value="ingredient">Ingredient</option>
+              <option value="cooking_time">Cooking Time</option>
+              <option value="difficulty">Difficulty</option>
+            </select>
           <button type="submit">Search</button>
         </form>
         <!-- Logout Link -->
-      <a href="{% url 'logout' %}" style="margin-left: 20px">Logout</a>
+        <a href="{% url 'logout' %}" class="nav-button">Logout</a>
       </div>
     </div>
   </body>
