@@ -88,3 +88,37 @@ class RecipeModelTest(TestCase):
             reverse("search_results"), {"query": "Easy", "search_type": "difficulty"}
         )
         self.assertContains(response, "Tea")
+
+    def test_add_recipe_form_render(self):
+        # Test if the add recipe form is rendered correctly
+        response = self.client.get(reverse('home'))
+        self.assertEqual(response.status_code, 200)
+        self.assertContains(response, 'Add New Recipe')
+
+    def test_add_recipe_submission(self):
+        # Test submitting a new recipe
+        image = SimpleUploadedFile(
+            "..\static\recipes\Images\Coffee.jpg", content=b"", content_type="image/jpeg"
+        )
+        response = self.client.post(reverse('home'), {
+            'name': 'Coffee',
+            'description': 'A basic coffee recipe',
+            'cooking_time': 5,
+            'ingredients': [Ingredient.objects.create(name='coffee').id],
+            'image': image
+        })
+        if response.status_code != 200:
+            print(response.context['form'].errors)
+            self.assertEqual(response.status_code, 200)
+
+    def test_invalid_recipe_submission(self):
+        # Test submitting an invalid recipe
+        response = self.client.post(reverse('home'), {
+            'name': '',
+            'description': 'A basic coffee recipe',
+            'cooking_time': 5,
+            'ingredients': [Ingredient.objects.create(name='coffee').id]
+            # Omitting the image field
+        })
+        self.assertEqual(response.status_code, 200)  # Should render the form again with errors
+        self.assertFalse(Recipe.objects.filter(description='A basic coffee recipe').exists())  # Check recipe was not added

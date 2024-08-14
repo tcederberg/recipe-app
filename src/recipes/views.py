@@ -1,4 +1,4 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from .models import Recipe, Ingredient
 from django.contrib.auth.decorators import login_required
 from django.db.models import Avg
@@ -12,11 +12,18 @@ from io import BytesIO
 import base64
 from django.db.models.functions import TruncMonth
 from django_pandas.io import read_frame
+from .forms import RecipeForm
 
 
 @login_required
 def home(request):
-    return render(request, "recipes/recipes_home.html")
+    form = RecipeForm()
+    if request.method == 'POST':
+        form = RecipeForm(request.POST, request.FILES)
+        if form.is_valid():
+            form.save()
+            return redirect('home')  # Redirect back to the home page
+    return render(request, "recipes/recipes_home.html", {'form': form})
 
 
 @login_required
@@ -222,3 +229,17 @@ def search_results(request):
         "recipes/search_results.html",
         {"recipes": recipes, "query": query, "search_type": search_type},
     )
+
+@login_required
+def add_recipe(request):
+    if request.method == 'POST':
+        form = RecipeForm(request.POST, request.FILES)
+        if form.is_valid():
+            form.save()
+            return redirect('recipe_overview')  # Redirect to the recipe overview page
+    else:
+        form = RecipeForm()
+    return render(request, 'recipes/add_recipe.html', {'form': form})
+
+def about_me(request):
+    return render(request, 'recipes/about_me.html')

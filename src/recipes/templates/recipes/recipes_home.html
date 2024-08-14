@@ -81,6 +81,20 @@
         <!-- All Recipes Button -->
         <a href="{% url 'show_all_recipes' %}" class="nav-button"
           >View All Recipes</a>
+          
+        <!-- Add Recipe Button -->
+        <button id="addRecipeBtn" class="nav-button">Add Recipe</button>
+
+        <!-- Recipe Form (Initially Hidden) -->
+        <div id="recipeForm" style="display:none;">
+            <h2>Add New Recipe</h2>
+            <form method="post" enctype="multipart/form-data">
+                {% csrf_token %}
+                {{ form.as_p }}
+                <button type="submit" class="nav-button">Save Recipe</button>
+            </form>
+        </div>  
+          
           <!-- Search Form -->
         <form action="{% url 'search_results' %}" method="get">
             <input type="text" name="query" placeholder="Search recipes..." />
@@ -90,11 +104,25 @@
               <option value="cooking_time">Cooking Time</option>
               <option value="difficulty">Difficulty</option>
             </select>
-          <button type="submit">Search</button>
+            <button type="submit" class="nav-button">Search</button>
         </form>
+        <a href="{% url 'about_me' %}" class="nav-button">About Me</a>
         <!-- Logout Link -->
         <a href="{% url 'logout' %}" class="nav-button">Logout</a>
       </div>
     </div>
+
+    <!-- JavaScript to Toggle Form Visibility -->
+    <script>
+        document.getElementById('addRecipeBtn').addEventListener('click', function() {
+            var form = document.getElementById('recipeForm');
+            if (form.style.display === 'none') {
+                form.style.display = 'block';
+            } else {
+                form.style.display = 'none';
+            }
+        });
+    </script>
+
   </body>
 </html>

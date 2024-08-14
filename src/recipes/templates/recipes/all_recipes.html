@@ -44,8 +44,10 @@
         margin-bottom: 20px;
       }
       .recipe-image {
-        max-width: 350px;
-        height: 350px;
+        width: 300px;  /* Desired uniform width */
+        height: 200px; /* Desired uniform height */
+        object-fit: cover; /* This will ensure the image covers the area, cropping if necessary */
+        border-radius: 5px; /* Optional, for rounded corners */
       }
       .nav-links {
         margin-top: 20px;
@@ -72,6 +74,11 @@
         alt="Recipe Collection Header"
       />
     </div>
+    <div class="nav-links">
+        <a href="{% url 'home' %}" class="nav-button" >Back to Home</a>
+        <!-- Logout Link -->
+        <a href="{% url 'logout' %}" class="nav-button" >Logout</a>
+      </div>
     <div class="container">
       <h1>All Recipes</h1>
       {% for recipe in recipes %}
@@ -85,8 +92,7 @@
           <h2>{{ recipe.name }}</h2>
           <p>{{ recipe.description|truncatewords:10 }}</p>
           <p>
-            Cooking Time: {{ recipe.cooking_time }} minutes | Difficulty: {{
-            recipe.calculate_difficulty }}
+            Cooking Time: {{ recipe.cooking_time }} minutes | Difficulty: {{ recipe.calculate_difficulty }}
           </p>
         </a>
       </div>
@@ -94,9 +100,9 @@
       <p>No recipes found.</p>
       {% endfor %}
       <div class="nav-links">
-        <a href="{% url 'home' %}" class="nav-button" >Back to Home</a>
+        <button href="{% url 'home' %}" class="nav-button" >Back to Home</button>
         <!-- Logout Link -->
-        <a href="{% url 'logout' %}" class="nav-button" >Logout</a>
+        <button href="{% url 'logout' %}" class="nav-button" >Logout</button>
       </div>
     </div>
   </body>

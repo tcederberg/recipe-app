@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>About Me</title>
+    <style>
+        body {
+          font-family: Arial, sans-serif;
+          margin: 0;
+          padding: 0;
+          background-color: #f3f3f3;
+          text-align: center;
+        }
+        .container {
+          margin-top: 50px; /* Adjust if more space needed */
+          margin-left: auto;
+          margin-right: auto;
+          max-width: 800px; /* Sets a maximum width */
+          padding: 0 15px; /* Adds some padding on the sides */
+        }
+        h1 {
+          color: #333;
+        }
+        p {
+          color: #666;
+        }
+        .header-image {
+          width: 100%;
+          margin-bottom: 30px; /* Adds space below the image */
+        }
+        .header-image img {
+          width: 100%;
+          max-height: 500px; /* Adjust the max-height as needed */
+          object-fit: cover;
+        }
+        .nav-links {
+          margin-top: 20px;
+        }
+        .nav-links > * {
+          display: block; /* Stack elements vertically */
+          margin: 10px auto; /* Center elements */
+        }
+        .nav-button {
+          display: inline-block; /* Allows buttons to sit side-by-side */
+          background-color: #007bff;
+          color: white;
+          padding: 10px 20px;
+          text-decoration: none;
+          border-radius: 5px;
+          border: none;
+          cursor: pointer;
+          margin: 0 10px; /* Spacing between buttons */
+          max-width: 200px; /* Maximum width of buttons */
+          box-sizing: border-box; /* Includes padding and border in the width */
+          margin-top: 10px; /* Space above the buttons */
+        }
+        form {
+          display: inline-block; /* Aligns elements in a line */
+          margin-bottom: 15px; /* Space below the form */
+        }
+        .logout-btn {
+          display: block; /* Isolate logout button */
+          margin-top: 20px; /* Space above logout button */
+        }
+      </style>
+  </head>
+  <body>
+
+
+    <div class="button-container">
+      <a href="{% url 'home' %}" class="nav-button">Back to Home</a>
+      <a href="{% url 'logout' %}" class="nav-button">Logout</a>
+    </div>
+
+    <div class="container">
+      <h1>About Me</h1>
+      <p>Hi, I'm Tim! Welcome to my developer profile.</p>
+
+      <!-- Introduction or a brief bio -->
+      <p>Hello, I'm Timothy Cederberg, a dedicated web developer from Hartford, Connecticut. With a diverse background in Health and Wellness and Education, I've built a solid foundation in full-stack development. I’m eager to apply my skills to create seamless, secure, and engaging web applications.</p>
+
+      <!-- Portfolio Link -->
+      <p><a href="https://tcederberg.github.io/portfolio-website/" class="nav-button">My Portfolio</a></p>
+
+      <!-- Contact Information -->
+      <p><strong>Email:</strong> trcederberg@gmail.com</p>
+      <p><strong>Phone:</strong> 630-880-6042</p>
+
+      <!-- GitHub Link -->
+      <p><a href="https://github.com/tcederberg" class="nav-button">GitHub Profile</a></p>
+
+      <!-- Any other relevant links -->
+      <p><a href="https://www.linkedin.com/in/timothy-cederberg-65b953198/" class="nav-button">LinkedIn</a></p>
+
+    </div>
+  </body>
+</html>
